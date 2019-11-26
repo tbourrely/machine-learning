@@ -2,12 +2,27 @@ from keras.models import Sequential
 from keras.layers import Dense, Dropout
 from keras.datasets import mnist
 from keras.utils import np_utils
-from keras.callbacks.tensorboard_v1 import TensorBoard
+from keras.callbacks.tensorboard_v1 import TensorBoard # v2 fails to show histograms
+from keras.callbacks.callbacks import ModelCheckpoint
+
 import datetime
 
-logs_dir = "logs/" + datetime.datetime.now().strftime("%Y%m%d-%H%M%S")
+# Callbacks
 
-tensorboard = TensorBoard(
+logs_dir = "logs/" + datetime.datetime.now().strftime("%Y%m%d-%H%M%S")
+model_save_filepath = "models/best-model.hdf5"
+
+modelCheckpointCallback = ModelCheckpoint(
+    model_save_filepath,
+    monitor='val_accuracy',
+    verbose=1,
+    save_best_only=True,
+    save_weights_only=False,
+    mode='max',
+    period=1
+)
+
+tensorboardCallback = TensorBoard(
     log_dir=logs_dir, 
     histogram_freq=1, 
     batch_size=32, 
@@ -56,7 +71,7 @@ model.fit(
     epochs=epochs, 
     verbose=1, 
     validation_data=(x_test, y_test),
-    callbacks=[tensorboard])
+    callbacks=[tensorboardCallback, modelCheckpointCallback])
 
 score = model.evaluate(x_test, y_test, verbose=0)
 print('Test score: {}'.format(score[0]))
