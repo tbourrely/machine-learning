@@ -25,9 +25,10 @@ def evaluateModel(model, x_test, y_test, verbose=0):
     print('Test score: {}'.format(score[0]))
     print('Test accuracy: {}'.format(score[1]))
 
+# Test if file exists, if not -> exit
 def quitIfFileNotExist(file):
-    if not path.exists(bestModelPath):
-        print(bestModelPath + ' does not exists')
+    if not path.exists(file):
+        print(file + ' does not exists')
         sys.exit(1)
 
 #====================================================================
