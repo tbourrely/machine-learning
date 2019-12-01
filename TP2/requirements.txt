@@ -1,3 +1,4 @@
 keras
-tensorflow-gpu
+#tensorflow-gpu
+tensorflow
 pandas
