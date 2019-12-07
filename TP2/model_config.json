@@ -1,0 +1,25 @@
+{
+    "models": [
+        {
+            "activation_function": "relu",
+            "input_activation_function": "relu",
+            "output_activation_function": "sigmoid",
+            "loss": "binary_crossentropy",
+            "optimizer": "adam"
+        },
+        {
+            "activation_function": "relu",
+            "input_activation_function": "relu",
+            "output_activation_function": "sigmoid",
+            "loss": "binary_crossentropy",
+            "optimizer": "rmsprop"
+        },
+        {
+            "activation_function": "sigmoid",
+            "input_activation_function": "sigmoid",
+            "output_activation_function": "sigmoid",
+            "loss": "binary_crossentropy",
+            "optimizer": "adagrad"
+        }
+    ]
+}
