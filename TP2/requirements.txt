@@ -1,5 +1,5 @@
 keras
 #tensorflow-gpu
-tensorflow
+tensorflow==1.15
 pandas
 sklearn
