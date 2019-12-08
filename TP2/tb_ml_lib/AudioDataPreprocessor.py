@@ -15,6 +15,7 @@ class AudioDataPreprocessor:
             print(file + ' does not exists')
             sys.exit(1)
 
+    # Return one-hot encoded labels (y) and raw data (x)
     def dataframeToXandY(self, dataframe):
         encoder = LabelBinarizer()
         y = dataframe['voyelle']
