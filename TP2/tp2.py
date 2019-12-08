@@ -75,6 +75,7 @@ for modelConfig in modelConfigReader.configs:
     print("-----------------------------------------")
 
     if (acc > BEST_CONFIG_ACC):
+        model.save('./models/TP2_FEEDFORWARD.hdf5')
         BEST_CONFIG = modelConfig
         BEST_CONFIG_LOSS = loss
         BEST_CONFIG_ACC = acc

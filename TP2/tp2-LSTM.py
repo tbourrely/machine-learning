@@ -1,5 +1,5 @@
 import datetime
-from keras.callbacks import TensorBoard
+from keras.callbacks import TensorBoard, ModelCheckpoint
 from keras.models import Sequential
 from keras.layers import Dense, Dropout, Embedding, LSTM
 
@@ -7,6 +7,7 @@ from tb_ml_lib.AudioDataPreprocessor import AudioDataPreprocessor
 
 LOG_DIR = "./log/" + datetime.datetime.now().strftime("%Y%m%d-%H%M%S")
 DATA_SOURCE = 'audio_data.txt'
+MODEL_SAVE_PATH = './models/TP2_RNN.hdf5'
 
 tensorboardCallback = TensorBoard(
     log_dir=LOG_DIR, 
@@ -20,6 +21,16 @@ tensorboardCallback = TensorBoard(
     embeddings_metadata=None, 
     embeddings_data=None, 
     update_freq='epoch')
+
+modelCheckpointCallback = ModelCheckpoint(
+    MODEL_SAVE_PATH,
+    monitor='val_accuracy',
+    verbose=1,
+    save_best_only=True,
+    save_weights_only=False,
+    mode='max',
+    period=1
+)
 
 audioDataPreprocessor = AudioDataPreprocessor()
 audioDataPreprocessor.load(DATA_SOURCE)
@@ -50,7 +61,7 @@ rnnModel.fit(
     epochs=EPOCHS, 
     verbose=1, 
     validation_data=(audioDataPreprocessor.validation.get('x'), audioDataPreprocessor.validation.get('y')),
-    callbacks=[tensorboardCallback])
+    callbacks=[tensorboardCallback, modelCheckpointCallback])
 
 loss, acc = rnnModel.evaluate(audioDataPreprocessor.test.get('x'), audioDataPreprocessor.test.get('y'), verbose=1)
 print('Test loss:', loss)
