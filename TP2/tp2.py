@@ -3,6 +3,7 @@ from keras.callbacks import TensorBoard
 from keras.models import Sequential
 from keras.layers import Dense, Dropout
 from keras.backend import clear_session
+from keras.metrics import categorical_accuracy
 
 from tb_ml_lib.ModelConfigReader import ModelConfigReader
 from tb_ml_lib.AudioDataPreprocessor import AudioDataPreprocessor
@@ -59,7 +60,7 @@ for modelConfig in modelConfigReader.configs:
     model.add(Dropout(0.5))
     model.add(Dense(NUM_CLASSES, activation=OUTPUT_ACTIVATION))
 
-    model.compile(loss=modelConfig.loss, optimizer=modelConfig.optimizer, metrics=["accuracy"])
+    model.compile(loss=modelConfig.loss, optimizer=modelConfig.optimizer, metrics=[categorical_accuracy])
 
     model.fit(
         audioDataPreprocessor.training.get('x'), 

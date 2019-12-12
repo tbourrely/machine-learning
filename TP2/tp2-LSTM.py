@@ -2,6 +2,7 @@ import datetime
 from keras.callbacks import TensorBoard, ModelCheckpoint
 from keras.models import Sequential
 from keras.layers import Dense, Dropout, Embedding, LSTM
+from keras.metrics import categorical_accuracy
 
 from tb_ml_lib.AudioDataPreprocessor import AudioDataPreprocessor
 
@@ -24,7 +25,7 @@ tensorboardCallback = TensorBoard(
 
 modelCheckpointCallback = ModelCheckpoint(
     MODEL_SAVE_PATH,
-    monitor='val_accuracy',
+    monitor='val_categorical_accuracy',
     verbose=1,
     save_best_only=True,
     save_weights_only=False,
@@ -39,7 +40,7 @@ NUM_CLASSES = len(audioDataPreprocessor.completeDataset.voyelle.unique())
 INPUT_DIMENSION = 7
 EPOCHS = 2
 
-ACTIVATION='relu'
+ACTIVATION='tanh'
 
 MAX_EMBEDDING_VALUE = int(audioDataPreprocessor.training.get('x').max().max()) + 1
 
@@ -54,7 +55,7 @@ rnnModel.add(LSTM(128, activation=ACTIVATION))
 rnnModel.add(Dropout(0.3))
 rnnModel.add(Dense(NUM_CLASSES, activation='softmax'))
 
-rnnModel.compile(loss='binary_crossentropy', optimizer='adam', metrics=["accuracy"])
+rnnModel.compile(loss='categorical_crossentropy', optimizer='adam', metrics=[categorical_accuracy])
 rnnModel.fit(
     audioDataPreprocessor.training.get('x'), 
     audioDataPreprocessor.training.get('y'), 

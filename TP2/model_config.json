@@ -1,25 +1,32 @@
 {
     "models": [
         {
-            "activation_function": "relu",
-            "input_activation_function": "relu",
+            "activation_function": "sigmoid",
+            "input_activation_function": "sigmoid",
             "output_activation_function": "sigmoid",
-            "loss": "binary_crossentropy",
+            "loss": "categorical_crossentropy",
+            "optimizer": "adam"
+        },
+        {
+            "activation_function": "sigmoid",
+            "input_activation_function": "sigmoid",
+            "output_activation_function": "softmax",
+            "loss": "categorical_crossentropy",
+            "optimizer": "adam"
+        },
+        {
+            "activation_function": "tanh",
+            "input_activation_function": "tanh",
+            "output_activation_function": "softmax",
+            "loss": "categorical_crossentropy",
             "optimizer": "adam"
         },
         {
             "activation_function": "relu",
             "input_activation_function": "relu",
-            "output_activation_function": "sigmoid",
-            "loss": "binary_crossentropy",
-            "optimizer": "rmsprop"
-        },
-        {
-            "activation_function": "sigmoid",
-            "input_activation_function": "sigmoid",
-            "output_activation_function": "sigmoid",
-            "loss": "binary_crossentropy",
-            "optimizer": "adagrad"
+            "output_activation_function": "softmax",
+            "loss": "categorical_crossentropy",
+            "optimizer": "adam"
         }
     ]
 }
